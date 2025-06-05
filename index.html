@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Profil Musik Modern</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    body.light {
+      background: #f0f0f0;
+      color: #000;
+    }
+
+    body.dark {
+      background: #000;
+      color: #fff;
+    }
+
+    .mode-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+      background-color: transparent;
+      border: 2px solid currentColor;
+      color: inherit;
+      padding: 6px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .mode-toggle:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    .profile-card {
+      position: relative;
+      max-width: 360px;
+      margin: auto;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0,0,0,0.7);
+      transition: background 0.5s, border 0.5s;
+    }
+
+    body.light .profile-card {
+      background: rgba(255,255,255,0.85);
+      border: 2px solid #ccc;
+    }
+
+    body.dark .profile-card {
+  border: 2px solid white;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+    .profile-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid white;
+      margin-bottom: 15px;
+      transition: border 0.5s;
+    }
+
+    body.light .profile-photo {
+      border-color: #333;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    body.light p {
+      color: #444;
+    }
+
+    .socials {
+      margin-bottom: 20px;
+    }
+
+    .socials a {
+      display: inline-block;
+      margin: 0 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .socials a img {
+      width: 28px;
+      height: 28px;
+      filter: drop-shadow(0 0 2px white);
+      transition: filter 0.3s;
+    }
+
+    .socials a:hover {
+      transform: scale(1.2);
+    }
+
+    .music-control {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .music-logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      animation: spin 4s linear infinite;
+      transition: filter 0.5s;
+      filter: drop-shadow(0 0 10px #1db954);
+    }
+
+    .paused {
+      animation-play-state: paused;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .progress-container {
+      width: 100%;
+      background: rgba(255,255,255,0.2);
+      height: 8px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: #1db954;
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    .time-display {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #ccc;
+      width: 100%;
+    }
+
+    button {
+      background-color: #1db954;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button:hover {
+      background-color: #159644;
+    }
+  </style>
+</head>
+<body class="dark">
+
+  <button class="mode-toggle" onclick="toggleMode()">Mode</button>
+
+  <div class="profile-card">
+    <img class="profile-photo" src="https://files.catbox.moe/dj5zee.jpg" alt="Foto Profil" />
+    <h2>Swiper Fvck</h2>
+    <p><strong>Hello everyone, let me introduce myself</strong></p>
+    <p><strong>Name: Swiper Fvck</strong></p>
+    <p><strong>My Girlfriend: Aqishh</strong></p>
+    <p><strong>Age: 17 Years</strong></p>
+    <p><strong>Location: Indonesia</strong></p>
+    <p><strong>Status: Student</strong></p>
+   <p><strong>Hobby: Programming, Automotive</strong></p>
+   <p><strong>Jangan menyerah, karena setiap langkah kecil menuju tujuan adalah kemenangan.</strong></p>
+   <p><strong>Percayalah pada dirimu sendiri, karena kamu memiliki kekuatan lebih besar dari yang kamu bayangkan.</strong></p>
+<p><strong>Kegagalan bukanlah akhir, melainkan awal dari pembelajaran dan pertumbuhan.</strong></p>
+   
+
+    <div class="socials">
+      <a href="https://www.tiktok.com/" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046120.png" alt="TikTok">
+      </a>
+      <a href="https://www.youtube.com/" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+      </a>
+      <a href="https://github.com/" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
+      </a>
+    </div>
+
+    <div class="music-control">
+      <img id="musicLogo" class="music-logo paused" src="https://files.catbox.moe/oyl0a4.png" alt="Spotify Icon">
+      
+      <div class="progress-container">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+
+      <div class="time-display">
+        <span id="currentTime">0:00</span>
+        <span id="duration">0:00</span>
+      </div>
+
+      <button onclick="toggleMusic()">⏯ Play / Pause Musik</button>
+    </div>
+
+    <audio id="backgroundMusic" autoplay>
+      <source id="audioSource" src="" type="audio/mpeg" />
+    </audio>
+  </div>
+
+  <script>
+    const audio = document.getElementById('backgroundMusic');
+    const progressBar = document.getElementById('progressBar');
+    const musicLogo = document.getElementById('musicLogo');
+    const currentTimeEl = document.getElementById('currentTime');
+    const durationEl = document.getElementById('duration');
+    const sourceEl = document.getElementById('audioSource');
+
+    const playlist = [
+      "https://files.catbox.moe/2yell2.mp3",
+      "https://files.catbox.moe/z6xtd1.mp3",
+      "https://files.catbox.moe/9pzmst.mp3"
+    ];
+    let currentTrack = 0;
+
+    function loadTrack(index) {
+      sourceEl.src = playlist[index];
+      audio.load();
+      audio.play();
+      musicLogo.classList.remove("paused");
+    }
+
+    function toggleMusic() {
+      if (audio.paused) {
+        audio.play();
+        musicLogo.classList.remove("paused");
+      } else {
+        audio.pause();
+        musicLogo.classList.add("paused");
+      }
+    }
+
+    function toggleMode() {
+      const body = document.body;
+      body.classList.toggle("dark");
+      body.classList.toggle("light");
+    }
+
+    audio.volume = 1;
+    audio.muted = true;
+    setTimeout(() => { audio.muted = false; }, 1000);
+    loadTrack(currentTrack);
+
+    audio.addEventListener('ended', () => {
+      currentTrack = (currentTrack + 1) % playlist.length;
+      loadTrack(currentTrack);
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+      durationEl.textContent = formatTime(audio.duration);
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      progressBar.style.width = percent + '%';
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+    });
+
+    function formatTime(time) {
+      const minutes = Math.floor(time / 60);
+      const seconds = Math.floor(time % 60);
+      return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+  </script>
+
+</body>
+</html>
