@@ -1,0 +1,351 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Website Swiper Fvck</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      overflow: hidden;
+      color: white;
+    }
+
+    .background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.6);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+      text-align: center;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .profile-pic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid white;
+      object-fit: cover;
+      box-shadow: 0 0 10px #fff;
+      margin: 1rem auto;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .audio-player {
+      margin-top: 2rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1rem 1.5rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .spotify-logo {
+      width: 40px;
+      filter: drop-shadow(0 0 10px #1DB954);
+      animation: spin 6s linear infinite;
+      position: absolute;
+      left: 20px;
+      top: 20px;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .custom-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin-top: 1.5rem;
+    }
+
+    .play-pause-btn {
+      background: #1DB954;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-bottom: 0.8rem;
+      transition: background 0.3s ease;
+    }
+
+    .play-pause-btn:hover {
+      background: #17a64b;
+    }
+
+    .time-display {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      background-color: #1DB954;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .description {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      opacity: 0.85;
+    }
+
+    .social-links {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      color: white;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: #1DB954;
+    }
+
+    audio {
+      display: none;
+    }
+
+    .playlist {
+      display: none;
+    }
+
+    /* Sidebar Styles */
+    #menuToggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 2rem;
+      color: white;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      padding: 5px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 100;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    #menuToggle.hidden {
+      opacity: 0;
+      transform: scale(0.8);
+      pointer-events: none;
+    }
+
+    #sideMenu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      height: 100%;
+      width: 250px;
+      background-color: rgba(0, 0, 0, 0.95);
+      transition: left 0.3s ease;
+      z-index: 99;
+      padding: 2rem 1rem;
+      color: white;
+    }
+
+    #closeMenu {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Blur effect */
+    .blur {
+      filter: blur(6px);
+      transition: filter 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+  <!-- Toggle Button -->
+  <button id="menuToggle">☰</button>
+
+  <!-- Sidebar -->
+  <div id="sideMenu">
+    <span id="closeMenu">&times;</span>
+    <h2>Menu</h2>
+    <ul style="list-style: center; padding: 0; margin-top: 1rem;">
+      <li><a href="produk.html" style="color: white;">Produk</a></li>
+      <li><a href="payment.html" style="color: white;">Payment</a></li>
+      <li><a href="aboutme.html" style="color: white;">About Me</a></li>
+    </ul>
+  </div>
+
+  <!-- Background Video -->
+  <video class="background-video" id="backgroundVideo" autoplay muted loop>
+    <source src="https://files.catbox.moe/yg66z3.mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="overlay" id="overlay"></div>
+
+  <div class="container" id="mainContent">
+    <!-- Profile -->
+    <img src="https://files.catbox.moe/dj5zee.jpg" alt="Profile" class="profile-pic" />
+    <h1>Swiper Fvck</h1>
+
+    <!-- Audio Player -->
+    <div class="audio-player">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify" class="spotify-logo" />
+      <audio id="audio" autoplay>
+        <source src="https://files.catbox.moe/2yell2.mp3" type="audio/mpeg">
+      </audio>
+      <button class="play-pause-btn" id="playPauseBtn">Play</button>
+      <div class="custom-controls">
+        <div class="time-display" id="timeDisplay">00:00 / 00:00</div>
+        <div class="progress-bar">
+          <div class="progress" id="progressBar"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="description">
+      Hello everyone, let me introduce myself Name: Swiper Fvck My Girlfriend: Aqishh Age: 17 Years Location: Indonesia Status: Student Hobby: Programming, Automotive.
+    </div>
+
+    <!-- Social Links -->
+    <div class="social-links">
+      <a href="https://www.tiktok.com/@swiper.hengsam" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+      <a href="https://github.com/SwipFvck" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.youtube.com/@Swipernothem" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://whatsapp.com/channel/0029Vb5dUs07oQhjMXztZw2o" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://sociabuzz.com/swiperfvck" target="_blank" title="More Links"><i class="fas fa-link"></i></a>
+    </div>
+
+    <!-- Hidden Playlist -->
+    <div class="playlist" id="playlist">
+      <a href="https://files.catbox.moe/z6xtd1.mp3">Lagu 1</a>
+      <a href="https://files.catbox.moe/9pzmst.mp3">Lagu 2</a>
+      <a href="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">Lagu 3</a>
+    </div>
+  </div>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const progressBar = document.getElementById('progressBar');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const playlistLinks = document.querySelectorAll('#playlist a');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+
+    let currentTrack = 0;
+
+    function formatTime(seconds) {
+      const min = Math.floor(seconds / 60);
+      const sec = Math.floor(seconds % 60);
+      return `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+    }
+
+    function updateProgress() {
+      if (!isNaN(audio.duration)) {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = `${progress}%`;
+        timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+      }
+    }
+
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('loadedmetadata', updateProgress);
+
+    audio.addEventListener('ended', () => {
+      currentTrack++;
+      if (currentTrack < playlistLinks.length) {
+        audio.src = playlistLinks[currentTrack].href;
+        audio.play();
+        playPauseBtn.textContent = 'Pause';
+      }
+    });
+
+    playPauseBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.textContent = 'Pause';
+      } else {
+        audio.pause();
+        playPauseBtn.textContent = 'Play';
+      }
+    });
+
+    const menuToggle = document.getElementById('menuToggle');
+    const sideMenu = document.getElementById('sideMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    const mainContent = document.getElementById('mainContent');
+    const overlay = document.getElementById('overlay');
+    const backgroundVideo = document.getElementById('backgroundVideo');
+
+    menuToggle.addEventListener('click', () => {
+      sideMenu.style.left = '0';
+      menuToggle.classList.add('hidden');
+      mainContent.classList.add('blur');
+      overlay.classList.add('blur');
+      backgroundVideo.classList.add('blur');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      sideMenu.style.left = '-250px';
+      menuToggle.classList.remove('hidden');
+      mainContent.classList.remove('blur');
+      overlay.classList.remove('blur');
+      backgroundVideo.classList.remove('blur');
+    });
+  </script>
+</body>
+</html>
